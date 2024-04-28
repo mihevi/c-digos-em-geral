@@ -1,0 +1,49 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+void removeEspacos(char *str) {
+    int i, j;
+    for (i = 0; str[i] != '\0'; ++i) {
+        while (str[i] == ' ') {
+            for (j = i; str[j] != '\0'; ++j) {
+                str[j] = str[j + 1];
+            }
+        }
+    }
+}
+
+void inverteString(char *str) {
+    int i = 0;
+    int j = strlen(str) - 1;
+    char temp;
+    while (i < j) {
+        temp = str[i];
+        str[i] = str[j];
+        str[j] = temp;
+        i++;
+        j--;
+    }
+}
+
+int main() {
+    char str[100];
+    printf("Digite uma frase: ");
+    fgets(str, sizeof(str), stdin);
+    str[strcspn(str, "\n")] = '\0';
+
+    char strSemEspacos[strlen(str)];
+    char inv[strlen(strSemEspacos)];
+    strcpy(strSemEspacos, str);
+    removeEspacos(str);
+    strcpy(inv,str);
+    inverteString(str);
+    printf("String invertida e sem espaco: %s\n", str);
+    if (strcmp(str, inv) == 0) {
+        printf("É um palíndromo.\n");
+    } else {
+        printf("Não é um palíndromo.\n");
+    }
+    
+    return 0;
+}
